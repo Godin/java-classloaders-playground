@@ -4,22 +4,14 @@ import java.io.InputStream;
 
 public class TargetLoader extends ClassLoader {
 
-  private final String targetName;
-  private final byte[] bytes;
+  private final String prefix;
 
-  public TargetLoader(String name, byte[] bytes) {
+  public TargetLoader(String prefix) {
     super(TargetLoader.class.getClassLoader());
-    this.targetName = name;
-    this.bytes = bytes;
+    this.prefix = prefix;
   }
 
-  public static InputStream getClassData(Class<?> clazz) {
-    final String resource = "/" + clazz.getName().replace('.', '/') + ".class";
-    return clazz.getResourceAsStream(resource);
-  }
-
-  public static byte[] getClassDataAsBytes(Class<?> clazz) throws IOException {
-    InputStream in = getClassData(clazz);
+  private static byte[] toByteArray(InputStream in) throws IOException {
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     byte[] buffer = new byte[0x100];
     int len;
@@ -32,7 +24,17 @@ public class TargetLoader extends ClassLoader {
 
   @Override
   protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
-    if (targetName.equals(name)) {
+    if (name.startsWith(prefix)) {
+      InputStream in = getResourceAsStream(name.replace('.', '/') + ".class");
+      if (in == null) {
+        throw new ClassNotFoundException(name);
+      }
+      byte[] bytes;
+      try {
+        bytes = toByteArray(in);
+      } catch (IOException e) {
+        throw new ClassNotFoundException(name, e);
+      }
       Class<?> c = defineClass(name, bytes, 0, bytes.length);
       if (resolve) {
         resolveClass(c);
