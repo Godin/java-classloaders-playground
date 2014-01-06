@@ -1,6 +1,6 @@
 package targets;
 
-public class ThreadLocalInnerClassLeak implements Runnable {
+public class ThreadLocalStaticInnerClass implements Runnable {
 
   private ThreadLocal<Object> threadLocal = new ThreadLocal<Object>();
 
@@ -9,7 +9,7 @@ public class ThreadLocalInnerClassLeak implements Runnable {
     threadLocal.set(new Inner());
   }
 
-  private class Inner {
+  private static class Inner {
   }
 
 }
