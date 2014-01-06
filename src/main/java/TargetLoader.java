@@ -2,6 +2,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Relevant JVM options are "-XX:+TraceClassLoading" and "-XX:+TraceClassUnloading".
+ */
 public class TargetLoader extends ClassLoader {
 
   private final String prefix;

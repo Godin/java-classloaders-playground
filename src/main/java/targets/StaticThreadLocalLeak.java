@@ -1,6 +1,6 @@
 package targets;
 
-public class ThreadLocalLeak implements Runnable {
+public class StaticThreadLocalLeak implements Runnable {
 
   private static ThreadLocal<Object> THREAD_LOCAL = new ThreadLocal<Object>();
 
