@@ -1,4 +1,4 @@
-import targets.Empty;
+import targets.ThreadLocalLeak;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
@@ -13,7 +13,7 @@ public class Example {
     long max = 0;
     for (int i = 0; i < 200000; i++) {
       ClassLoader classLoader = new TargetLoader("targets");
-      classLoader.loadClass(Empty.class.getName());
+      ((Runnable) classLoader.loadClass(ThreadLocalLeak.class.getName()).newInstance()).run();
       long used = permGenPool.getUsage().getUsed();
       if (used < max) {
         System.out.println("Deallocated");
