@@ -1,3 +1,5 @@
+package examples;
+
 import targets.ThreadLocalInnerClassLeak;
 
 public class ThreadLocalInnerClassExample {

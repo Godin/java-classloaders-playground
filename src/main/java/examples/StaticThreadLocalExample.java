@@ -1,3 +1,5 @@
+package examples;
+
 import targets.StaticThreadLocalLeak;
 
 public class StaticThreadLocalExample {

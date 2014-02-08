@@ -1,3 +1,5 @@
+package examples;
+
 import targets.CustomThreadGroupLeak;
 
 public class CustomThreadGroupExample {

@@ -1,3 +1,5 @@
+package examples;
+
 import targets.ThreadLocalStaticInnerClass;
 
 public class ThreadLocalStaticInnerClassExample {

@@ -1,3 +1,5 @@
+package examples;
+
 import targets.Deadlock;
 
 public class DeadlockExample {
